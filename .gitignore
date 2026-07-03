@@ -1,0 +1,27 @@
+# Maxfiy ma'lumotlar - HECH QACHON GitHub'ga yuklanmasin
+.env
+
+# Python cache fayllari
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+
+# Virtual muhit
+venv/
+env/
+.venv/
+.env/
+
+# IDE fayllari
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS fayllari
+.DS_Store
+Thumbs.db
+
+# Log fayllari
+*.log
