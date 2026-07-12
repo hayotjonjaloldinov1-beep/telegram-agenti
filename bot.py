@@ -1,6 +1,20 @@
 import telebot
 import google.generativeai as genai
 import config
+from flask import Flask
+import threading
+import os
+
+# Dummy Web Server (Render uchun port band qilish)
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "Telegram Bot is running!"
+
+def run_server():
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
 
 # Konfiguratsiyani tekshirish
 if not config.validate_config():
@@ -88,10 +102,17 @@ def handle_message(message):
 
 if __name__ == '__main__':
     print("Jaloldinov Telegram Bot Agent ishga tushmoqda...")
+    
+    # Web serverni orqa fonda ishga tushirish (Render xatoligini to'g'rilash uchun)
+    server_thread = threading.Thread(target=run_server)
+    server_thread.daemon = True
+    server_thread.start()
+
     try:
         # Webhook konfliktlarini o'chirish
         bot.remove_webhook()
     except Exception as e:
         print(f"Webhook o'chirishda xatolik: {e}")
+    
     # Botni doimiy eshitish rejimida yoqish
     bot.infinity_polling()
